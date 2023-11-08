@@ -39,10 +39,8 @@ function showValue() {
   cardElement.appendChild(cardNumberElement);
   cardContainer.appendChild(cardElement);
   document.getElementById(`score`).innerText = `Score: ${score}`;
-  document.getElementById(`tryes`).innerText = `Tryes: ${tries}`;
-  document.getElementById(
-    `cardsleft`
-  ).innerText = `Cards Left: ${kortlek.length}`;
+  document.getElementById(`tries`).innerText = `Tryes: ${tries}`;
+  document.getElementById(`cardsleft`).innerText = `Cards Left: ${kortlek.length}`;
 }
 
 function changenumber(value) {
