@@ -14,8 +14,8 @@ let comapared
 let score = 0;
 let tries = 5;
 
-
-for (let suit = 1; suit <= 4; suit++) {
+function cardCreat() {
+  for (let suit = 1; suit <= 4; suit++) {
   for (let value = 1; value <= 13; value++) {
     kortlek.push({
       value: value,
@@ -23,13 +23,55 @@ for (let suit = 1; suit <= 4; suit++) {
     });
   }
 }
+}
 
 function showValue() {
-document.getElementById(`card`).innerText = `Card Value: ${showcard.value}`
+  const cardContainer = document.querySelector(`#card-container`);
+  cardContainer.innerHTML = '';
+
+ 
+  const cardElement = document.createElement('div');
+  cardElement.className = `card ${getSuitClass(showcard.suit)}`;
+
+ 
+  const cardNumberElement = document.createElement('div');
+  cardNumberElement.className = 'card-number';
+  cardNumberElement.innerText = changenumber(showcard.value);
+
+ 
+  cardElement.appendChild(cardNumberElement);
+  
+cardContainer.appendChild(cardElement);
 document.getElementById(`score`).innerText = `Score: ${score}`
 document.getElementById(`tryes`).innerText = `Tryes: ${tries}`
 document.getElementById(`cardsleft`).innerText = `Cards Left: ${kortlek.length}`
 }
+
+function changenumber(value) {
+  if (value === 11) {
+    return "J";
+  } else if (value === 12) {
+    return "Q";
+  } else if (value === 13) {
+    return "K";
+  } else {
+    return value.toString();
+  }
+}
+
+function getSuitClass(suit) {
+  switch (suit) {
+    case 1:
+      return 'heart';
+    case 2:
+      return 'diamond';
+    case 3:
+      return 'clubs';
+    case 4:
+      return 'spades';
+    default:
+      return '';
+  }}
 
 function getCard() {
   const randomIndex = Math.floor(Math.random() * kortlek.length);
@@ -43,14 +85,34 @@ function removeCard(index) {
 }
 
 function begin() {
- showcard = getCard()
+  cardCreat()
+  if (kortlek.length === 52) {
+  showcard = getCard()
+  score = 0; 
   console.log("showcard", showcard);
   showValue();
+  console.log(kortlek)
+  document.getElementById('startone').style.display = "none";
+  document.getElementById(`gameover`).innerText = "";
+} }
+
+function reset() {
+  if (tries === 0) {
+    document.getElementById(`gameover`).innerText = "Go agien";
+    kortlek = []; 
+    
+    tries = 5; 
+    document.getElementById('startone').style.display = "inline"; 
+    document.getElementById('gameover').style.display = "block"; 
+    document.getElementById('card-container').innerHTML = ''; 
+    document.getElementById(`score`).innerText = `Score: ${score}`;
+    document.getElementById(`tryes`).innerText = `Tryes: ${tries}`;
+    document.getElementById(`cardsleft`).innerText = `Cards Left: 0`;
+  }
 }
 
 function compare(userPick) {
 if (tries > 0) {
-  
   console.log(userPick)
   card = getCard()
    if (card.value === showcard.value) {
@@ -69,15 +131,16 @@ if (tries > 0) {
   if (comapared === userPick) {
     console.log("win")
     score +=1
-    document.getElementById(`result`).innerText = `win`
   } else {
-    document.getElementById(`result`).innerText = `lose`
-    tries -= 1
+  tries -= 1
   console.log("wrong")}
   showcard = card
   showValue();
-  console.log(tries)}
+  reset();
+  }
 }
+
+
 
 
 
