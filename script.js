@@ -9,42 +9,40 @@
 
 // skappar kortleks objekt
 let kortlek = [];
-let showcard
-let comapared
+let showcard;
+let comapared;
 let score = 0;
-let tries = 5;
+let tries = 7;
 
 function cardCreat() {
   for (let suit = 1; suit <= 4; suit++) {
-  for (let value = 1; value <= 13; value++) {
-    kortlek.push({
-      value: value,
-      suit: suit,
-    });
+    for (let value = 1; value <= 13; value++) {
+      kortlek.push({
+        value: value,
+        suit: suit,
+      });
+    }
   }
-}
 }
 
 function showValue() {
   const cardContainer = document.querySelector(`#card-container`);
-  cardContainer.innerHTML = '';
+  cardContainer.innerHTML = "";
 
- 
-  const cardElement = document.createElement('div');
+  const cardElement = document.createElement("div");
   cardElement.className = `card ${getSuitClass(showcard.suit)}`;
 
- 
-  const cardNumberElement = document.createElement('div');
-  cardNumberElement.className = 'card-number';
+  const cardNumberElement = document.createElement("div");
+  cardNumberElement.className = "card-number";
   cardNumberElement.innerText = changenumber(showcard.value);
 
- 
   cardElement.appendChild(cardNumberElement);
-  
-cardContainer.appendChild(cardElement);
-document.getElementById(`score`).innerText = `Score: ${score}`
-document.getElementById(`tryes`).innerText = `Tryes: ${tries}`
-document.getElementById(`cardsleft`).innerText = `Cards Left: ${kortlek.length}`
+  cardContainer.appendChild(cardElement);
+  document.getElementById(`score`).innerText = `Score: ${score}`;
+  document.getElementById(`tryes`).innerText = `Tryes: ${tries}`;
+  document.getElementById(
+    `cardsleft`
+  ).innerText = `Cards Left: ${kortlek.length}`;
 }
 
 function changenumber(value) {
@@ -62,16 +60,17 @@ function changenumber(value) {
 function getSuitClass(suit) {
   switch (suit) {
     case 1:
-      return 'heart';
+      return "heart";
     case 2:
-      return 'diamond';
+      return "diamond";
     case 3:
-      return 'clubs';
+      return "clubs";
     case 4:
-      return 'spades';
+      return "spades";
     default:
-      return '';
-  }}
+      return "";
+  }
+}
 
 function getCard() {
   const randomIndex = Math.floor(Math.random() * kortlek.length);
@@ -85,26 +84,24 @@ function removeCard(index) {
 }
 
 function begin() {
-  cardCreat()
+  cardCreat();
   if (kortlek.length === 52) {
-  showcard = getCard()
-  score = 0; 
-  console.log("showcard", showcard);
-  showValue();
-  console.log(kortlek)
-  document.getElementById('startone').style.display = "none";
-  document.getElementById(`gameover`).innerText = "";
-} }
+    showcard = getCard();
+    showValue();
+    score = 0;
+    document.getElementById("startone").style.display = "none";
+    document.getElementById(`gameover`).innerText = "";
+  }
+}
 
 function reset() {
   if (tries === 0) {
     document.getElementById(`gameover`).innerText = "Go agien";
-    kortlek = []; 
-    
-    tries = 5; 
-    document.getElementById('startone').style.display = "inline"; 
-    document.getElementById('gameover').style.display = "block"; 
-    document.getElementById('card-container').innerHTML = ''; 
+    kortlek = [];
+    tries = 5;
+    document.getElementById("startone").style.display = "inline";
+    document.getElementById("gameover").style.display = "block";
+    document.getElementById("card-container").innerHTML = "";
     document.getElementById(`score`).innerText = `Score: ${score}`;
     document.getElementById(`tryes`).innerText = `Tryes: ${tries}`;
     document.getElementById(`cardsleft`).innerText = `Cards Left: 0`;
@@ -112,38 +109,22 @@ function reset() {
 }
 
 function compare(userPick) {
-if (tries > 0) {
-  console.log(userPick)
-  card = getCard()
-   if (card.value === showcard.value) {
-    comapared = "same"
-    console.log("Card 1:", card);
-  console.log("showcard", showcard);
-  } else if (card.value < showcard.value) {
-    comapared = "lower"
-    console.log("Card 1:", card);
-  console.log("showcard", showcard);
-  } else if (card.value > showcard.value) {
-    comapared = "higher"
-    console.log("Card 1:", card);
-  console.log("showcard", showcard);
-  }
-  if (comapared === userPick) {
-    console.log("win")
-    score +=1
-  } else {
-  tries -= 1
-  console.log("wrong")}
-  showcard = card
-  showValue();
-  reset();
+  if (tries > 0) {
+    card = getCard();
+    if (card.value === showcard.value) {
+      comapared = "same";
+    } else if (card.value < showcard.value) {
+      comapared = "lower";
+    } else if (card.value > showcard.value) {
+      comapared = "higher";
+    }
+    if (comapared === userPick) {
+      score += 1;
+    } else {
+      tries -= 1;
+    }
+    showcard = card;
+    showValue();
+    reset();
   }
 }
-
-
-
-
-
-// spara i en arr varje kort
-// byta ut consol log win // wrong
-
