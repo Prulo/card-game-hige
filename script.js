@@ -52,6 +52,8 @@ function changenumber(value) {
     return "Q";
   } else if (value === 13) {
     return "K";
+  } else if (value === 1) {
+    return "A";
   } else {
     return value.toString();
   }
@@ -96,7 +98,7 @@ function begin() {
 
 function reset() {
   if (tries === 0) {
-    document.getElementById(`gameover`).innerText = "Go agien";
+    document.getElementById(`gameover`).innerText = "Go Again";
     kortlek = [];
     tries = 5;
     document.getElementById("startone").style.display = "inline";
