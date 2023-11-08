@@ -98,7 +98,7 @@ function reset() {
   if (tries === 0) {
     document.getElementById(`gameover`).innerText = "Go Again";
     kortlek = [];
-    tries = 5;
+    tries = 7;
     document.getElementById("startone").style.display = "inline";
     document.getElementById("gameover").style.display = "block";
     document.getElementById("card-container").innerHTML = "";
